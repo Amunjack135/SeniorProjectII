@@ -4,7 +4,7 @@ import logo from "../assets/upscale-logo.png";
 import { useAuth } from "../hooks/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth as firebaseAuth } from "../firebase";
-import "./navbar.css";
+import "./Navbar.css";
 
 const NavBar = () => {
   const location = useLocation();
