@@ -33,6 +33,7 @@ ServerAPI.init(app, CORS, {})
 @app.after_request
 def add_header(response):
     response.headers = CORS | response.headers
+    print(response.headers)
     return response
 
 
