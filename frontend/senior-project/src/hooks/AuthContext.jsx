@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
   async function getAuth() {
     try {
-      const res = await fetch("http://136.113.13.184:5000/react/companies", {
+      const res = await fetch("https://136.113.13.184:5000/react/connect", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // important if using cookies
