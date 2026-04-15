@@ -18,7 +18,7 @@ import Logging
 CORS: dict[str, str] = {
     'Access-Control-Allow-Origin': 'https://senior-project-ii.vercel.app',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Credentials': 'true'
 }
 
