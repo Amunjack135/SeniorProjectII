@@ -17,7 +17,7 @@ import Logging
 # Setup
 CORS: dict[str, str] = {
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': '*'
 }
 
