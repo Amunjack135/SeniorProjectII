@@ -30,6 +30,12 @@ Socketio.init(server)
 ServerAPI.init(app, CORS, {})
 
 
+@app.after_request
+def add_header(response):
+    response.headers = CORS | response.headers
+    return response
+
+
 # Routing
 @app.route('/')
 def index() -> flask.Response:
