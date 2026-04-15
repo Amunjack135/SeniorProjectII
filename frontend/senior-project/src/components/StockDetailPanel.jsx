@@ -146,7 +146,7 @@ const StockDetailPanel = ({
 
       try {
         const [rangeRes, summaryRes] = await Promise.all([
-          fetch("/api/react/company-history", {
+          fetch("https://136.113.13.184/react/company-history", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -156,7 +156,7 @@ const StockDetailPanel = ({
               interval: selectedRange.interval,
             }),
           }),
-          fetch("/api/react/company-history", {
+          fetch("https://136.113.13.184/react/company-history", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -204,7 +204,7 @@ const StockDetailPanel = ({
       setLoadingImage(true);
 
       try {
-        const res = await fetch("/api/react/company-history-image", {
+        const res = await fetch("https://136.113.13.184/react/company-history-image", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

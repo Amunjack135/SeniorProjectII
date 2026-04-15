@@ -56,7 +56,7 @@ const PaperTradingPage = () => {
 
   async function getCompanyCurrent(authToken, companyCode) {
     try {
-      const res = await fetch("/api/react/company-history", {
+      const res = await fetch("https://136.113.13.184/react/company-history", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

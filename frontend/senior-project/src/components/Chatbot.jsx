@@ -68,7 +68,7 @@ const Chatbot = () => {
 
     async function getChatBotResponse(auth, userInput) {
         try {
-            const res = await fetch("/api/react/chatbot", { 
+            const res = await fetch("https://136.113.13.184/react/chatbot", { 
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 

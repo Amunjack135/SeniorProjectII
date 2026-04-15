@@ -26,7 +26,7 @@ const NewsPage = () => {
         setError(null);
 
         try {
-        const res = await fetch("/api/react/news", { 
+        const res = await fetch("https://136.113.13.184/react/news", { 
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
