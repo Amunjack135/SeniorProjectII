@@ -18,7 +18,7 @@ const StockPage = () => {
     setError(null);
 
     try {
-      const res = await fetch("http://136.113.13.184:5004/react/companies", { 
+      const res = await fetch("http://136.113.13.184:5000/react/companies", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ auth: auth, page: nextPage }),
@@ -38,7 +38,7 @@ const StockPage = () => {
 
   async function getCompanyCurrent(auth, companyCode) {
     try {
-      const res = await fetch("http://136.113.13.184:5004/react/companies", {
+      const res = await fetch("http://136.113.13.184:5000/react/companies", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
