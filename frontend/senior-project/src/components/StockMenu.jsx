@@ -60,6 +60,8 @@ const StockMenu = ({ company, onViewDetails }) => {
   const [chartLoading, setChartLoading] = useState(true);
   const [chartError, setChartError] = useState(false);
 
+  console.log(rawPrice);
+
   async function getStockGraph(auth) {
     try {
       setChartLoading(true);
