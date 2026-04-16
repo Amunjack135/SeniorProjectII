@@ -16,9 +16,10 @@ import Logging
 
 # Setup
 CORS: dict[str, str] = {
-    'Access-Control-Allow-Origin': 'senior-project-ii.vercel.app',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': '*'
+    'Access-Control-Allow-Origin': 'https://senior-project-ii.vercel.app',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Credentials': 'true'
 }
 
 logger: Logger.Logger = Logging.init(False)
@@ -27,6 +28,13 @@ Database.MyDatabase.load(FileSystem.File(__file__).parent.directory('database'))
 server: Connection.FlaskSocketioServer = Connection.FlaskSocketioServer(app)
 Socketio.init(server)
 ServerAPI.init(app, CORS, {})
+
+
+@app.after_request
+def add_header(response):
+    for k, v in CORS.items():
+        response.headers[k] = v
+    return response
 
 
 # Routing
