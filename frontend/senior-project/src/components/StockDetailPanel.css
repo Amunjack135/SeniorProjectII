@@ -149,18 +149,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 0;
   box-sizing: border-box;
 }
 
-.stock-detail-chart-image {
-  width: auto;
+.stock-detail-chart-frame {
+  width: 100%;
   height: 100%;
-  max-width: 100%;
-  object-fit: contain;
-  object-position: center;
+  border: 0;
   background: #16191f;
-  border-radius: 16px;
 }
 
 .stock-detail-midline {
@@ -382,10 +379,6 @@
   .stock-detail-chart-state {
     min-height: 280px;
     height: 280px;
-  }
-
-  .stock-detail-chart-image {
-    max-height: 100%;
   }
 
   .stock-detail-range-bar {

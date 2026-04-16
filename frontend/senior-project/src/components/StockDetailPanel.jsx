@@ -106,9 +106,7 @@ const StockDetailPanel = ({
   const [viewMode, setViewMode] = useState("line");
   const [history, setHistory] = useState([]);
   const [summaryHistory, setSummaryHistory] = useState([]);
-  const [chartImage, setChartImage] = useState(null);
   const [loadingHistory, setLoadingHistory] = useState(false);
-  const [loadingImage, setLoadingImage] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -195,50 +193,6 @@ const StockDetailPanel = ({
     };
   }, [auth, company?.symbol, isOpen, selectedRange]);
 
-  useEffect(() => {
-    if (!isOpen || !auth || !company?.symbol || viewMode !== "advanced") return;
-
-    let ignore = false;
-
-    async function fetchChartImage() {
-      setLoadingImage(true);
-
-      try {
-        const res = await fetch("https://136.113.13.184/react/company-history-image", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            auth,
-            company: company.symbol,
-            period: selectedRange.period,
-            interval: selectedRange.interval,
-            size: 900,
-          }),
-        });
-
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        const json = await res.json();
-        const base64 = json["image-base64"];
-        const mime = json["image-type"] || "image/jpeg";
-
-        if (!ignore) {
-          setChartImage(base64 ? `data:${mime};base64,${base64}` : null);
-        }
-      } catch (err) {
-        if (!ignore) setChartImage(null);
-      } finally {
-        if (!ignore) setLoadingImage(false);
-      }
-    }
-
-    fetchChartImage();
-
-    return () => {
-      ignore = true;
-    };
-  }, [auth, company?.symbol, isOpen, selectedRange, viewMode]);
-
   if (!isOpen || !company) return null;
 
   const displayName = company?.name || company?.symbol || "Stock";
@@ -268,6 +222,7 @@ const StockDetailPanel = ({
   const chartWidth = 760;
   const chartHeight = 340;
   const chartPadding = 12;
+  const advancedChartUrl = `/api/candlestick?company=${encodeURIComponent(company.symbol)}&period=${encodeURIComponent(selectedRange.period)}&interval=${encodeURIComponent(selectedRange.interval)}`;
   const chartPath = buildChartPath(activeHistory, chartWidth, chartHeight, chartPadding);
   const areaPath = buildAreaPath(chartPath, activeHistory, chartWidth, chartHeight, chartPadding);
   const infoItems = [
@@ -333,15 +288,16 @@ const StockDetailPanel = ({
             ) : error ? (
               <div className="stock-detail-chart-state">{error}</div>
             ) : viewMode === "advanced" ? (
-              loadingImage ? (
-                <div className="stock-detail-chart-state">Loading candlestick view...</div>
-              ) : chartImage ? (
-                <div className="stock-detail-chart-image-stage">
-                  <img className="stock-detail-chart-image" src={chartImage} alt={`${company.symbol} candlestick chart`} />
-                </div>
-              ) : (
-                <div className="stock-detail-chart-state">Advanced chart unavailable for this range.</div>
-              )
+              <div className="stock-detail-chart-image-stage">
+                <iframe
+                  key={advancedChartUrl}
+                  className="stock-detail-chart-frame"
+                  src={advancedChartUrl}
+                  title={`${company.symbol} candlestick chart`}
+                  loading="lazy"
+
+                />
+              </div>
             ) : activeHistory.length ? (
               <svg className="stock-detail-chart-svg" viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="none">
                 <defs>
