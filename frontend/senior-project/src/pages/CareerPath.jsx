@@ -40,37 +40,37 @@ export const options = {
 const labels = ["Year 1", "Year 2", "Year 3", "Year 4", "Year 5", "Year 6", "Year 7", "Year 8", "Year 9", "Year 10"];
 
 export const data = {
-    labels,
-    datasets: [
-        {
-            fill: true,
-            label: "No Degree",
-            data: [30000, 30000, 35000, 35000],
-            borderColor: "rgb(34, 197, 94)",
-            backgroundColor: "rgba(34, 197, 94, 0.2)",
-        },
-         {
-            fill: true,
-            label: "Bachelor's",
-            data: [0, 0, 0, 0, 94000, 99000, 104000, 110000, 116000, 122000],
-            borderColor: "rgb(34, 197, 94)",
-            backgroundColor: "rgba(34, 197, 94, 0.2)",
-        },
-        {
-            fill: true,
-            label: "Master's",
-            data: [0,0, 0, 0, 0, 0, 110000, 114000, 118000, 123000],
-            borderColor: "rgb(34, 197, 94)",
-            backgroundColor: "rgba(34, 197, 94, 0.2)",
-        },
-        {
-            fill: true,
-            label: "PhD",
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 150000, 152000, 155000],
-            borderColor: "rgb(34, 197, 94)",
-            backgroundColor: "rgba(34, 197, 94, 0.2)",
-        },
-    ],
+  labels,
+  datasets: [
+    {
+      fill: true,
+      label: "No Degree (Retail → Self-Taught)",
+      data: [32000, 35000, 40000, 55000, 70000, 85000, 100000, 115000, 125000, 135000],
+      borderColor: "rgb(34, 197, 94)",
+      backgroundColor: "rgba(34, 197, 94, 0.2)",
+    },
+    {
+      fill: true,
+      label: "Bachelor's",
+      data: [0, 0, 0, 0, 85000, 95000, 105000, 115000, 125000, 135000],
+      borderColor: "rgb(59, 130, 246)",
+      backgroundColor: "rgba(59, 130, 246, 0.2)",
+    },
+    {
+      fill: true,
+      label: "Master's",
+      data: [0, 0, 0, 0, 0, 0, 105000, 115000, 125000, 140000],
+      borderColor: "rgb(168, 85, 247)",
+      backgroundColor: "rgba(168, 85, 247, 0.2)",
+    },
+    {
+      fill: true,
+      label: "PhD",
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 130000, 145000],
+      borderColor: "rgb(239, 68, 68)",
+      backgroundColor: "rgba(239, 68, 68, 0.2)",
+    },
+  ],
 };
 
 const CareerPath = () => {
