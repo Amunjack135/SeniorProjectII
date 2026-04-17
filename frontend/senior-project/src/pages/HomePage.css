@@ -75,7 +75,7 @@
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 80px;
   align-items: center;
   position: relative;
@@ -115,7 +115,7 @@
 }
 
 .hero-title {
-  font-size: 72px;
+  font-size: clamp(3rem, 6vw, 4.5rem);
   font-weight: 900;
   line-height: 1.1;
   color: #ffffff;
@@ -132,7 +132,7 @@
 }
 
 .hero-description {
-  font-size: 18px;
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.7);
   margin: 0 0 40px;
@@ -214,7 +214,7 @@
 
 .hero-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 32px;
   animation: slideInLeft 0.8s ease-out 0.8s backwards;
 }
@@ -399,7 +399,7 @@
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 32px;
 }
 
@@ -492,7 +492,7 @@
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 80px;
   align-items: center;
 }
@@ -916,6 +916,14 @@
    =================================== */
 
 @media (max-width: 1200px) {
+  .hero-section,
+  .features-section,
+  .demo-section,
+  .cta-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
   .hero-title {
     font-size: 60px;
   }
@@ -933,7 +941,7 @@
   .hero-content,
   .demo-content {
     grid-template-columns: 1fr;
-    gap: 60px;
+    gap: 48px;
   }
 
   .demo-content.reverse {
@@ -942,6 +950,10 @@
 
   .hero-title {
     font-size: 48px;
+  }
+
+  .hero-text {
+    max-width: 100%;
   }
 
   .demo-title {
@@ -963,6 +975,12 @@
 
   .hero-visual {
     order: -1;
+  }
+
+  .hero-section {
+    min-height: auto;
+    padding-top: 110px;
+    padding-bottom: 72px;
   }
 }
 
@@ -1021,5 +1039,58 @@
 
   .cta-section {
     padding: 80px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 92px 16px 52px;
+  }
+
+  .features-section,
+  .demo-section,
+  .cta-section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero-badge,
+  .demo-badge {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-title {
+    font-size: 32px;
+    margin-bottom: 18px;
+  }
+
+  .hero-description,
+  .section-subtitle,
+  .demo-description {
+    font-size: 15px;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .section-title,
+  .demo-title,
+  .cta-title {
+    font-size: 28px;
+  }
+
+  .feature-card {
+    padding: 28px 20px;
+  }
+
+  .main-visual {
+    border-radius: 20px;
+  }
+
+  .bar {
+    width: 24px;
   }
 }

@@ -10,7 +10,17 @@ const NavBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { currentUser, loadingUser } = useAuth();
+
+  const navItems = [
+    { to: "/learningCenter", label: "Learning Center" },
+    { to: "/budget", label: "Budgeting" },
+    { to: "/news", label: "News" },
+    { to: "/stocks", label: "Live Stocks" },
+    { to: "/career", label: "Career Path" },
+    { to: "/papertrade", label: "Paper Trading" },
+  ];
 
   const handleLogout = async () => {
     try {
@@ -26,9 +36,24 @@ const NavBar = () => {
       setScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
   const isActive = (path) => location.pathname === path || location.pathname.startsWith(`${path}/`);
 
@@ -44,50 +69,16 @@ const NavBar = () => {
           </Link>
 
           <div className="nav-links">
-            <Link 
-              to="/learningCenter" 
-              className={`nav-link ${isActive('/learningCenter') ? 'active' : ''}`}
-            >
-              <span>Learning Center</span>
-              <div className="link-underline"></div>
-            </Link>
-            <Link 
-              to="/budget" 
-              className={`nav-link ${isActive('/budget') ? 'active' : ''}`}
-            >
-              <span>Budgeting</span>
-              <div className="link-underline"></div>
-            </Link>
-            <Link 
-              to="/news" 
-              className={`nav-link ${isActive('/news') ? 'active' : ''}`}
-            >
-              <span>News</span>
-              <div className="link-underline"></div>
-            </Link>
-            <Link 
-              to="/stocks" 
-              className={`nav-link ${isActive('/stocks') ? 'active' : ''}`}
-            >
-              <span>Live Stocks</span>
-              <div className="link-underline"></div>
-            </Link>
-            <Link 
-              to="/career" 
-              className={`nav-link ${isActive('/career') ? 'active' : ''}`}
-            >
-              <span>Career Path</span>
-              <div className="link-underline"></div>
-            </Link>
-            <Link 
-              to="/papertrade" 
-              className={`nav-link ${isActive('/papertrade') ? 'active' : ''}`}
-            >
-              <span>Paper Trading</span>
-              <div className="link-underline"></div>
-            </Link>
-            
-            
+            {navItems.map((item) => (
+              <Link 
+                key={item.to}
+                to={item.to}
+                className={`nav-link ${isActive(item.to) ? 'active' : ''}`}
+              >
+                <span>{item.label}</span>
+                <div className="link-underline"></div>
+              </Link>
+            ))}
           </div>
         </div>
 
@@ -113,6 +104,36 @@ const NavBar = () => {
               </Link>
             </>
           )}
+          <button
+            type="button"
+            className={`mobile-menu-btn ${mobileMenuOpen ? "active" : ""}`}
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            <span className="hamburger" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div
+        id="mobile-navigation"
+        className={`mobile-menu-panel ${mobileMenuOpen ? "open" : ""}`}
+      >
+        <div className="mobile-menu-links">
+          {navItems.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={`mobile-nav-link ${isActive(item.to) ? "active" : ""}`}
+            >
+              {item.label}
+            </Link>
+          ))}
         </div>
       </div>
     </nav>
