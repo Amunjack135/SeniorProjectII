@@ -624,14 +624,14 @@ const PaperTradingPage = () => {
                         <span>{stock.name || "Active position"}</span>
                       </div>
                     </td>
-                    <td>{formatHoldingShares(stock.shares)}</td>
-                    <td>{formatCurrency(stock.averagePrice)}</td>
-                    <td>{formatCurrency(stock.currentPrice)}</td>
-                    <td>{formatCurrency(stock.marketValue)}</td>
-                    <td className={getToneClass(stock.gainLoss)}>
+                    <td data-label="Shares">{formatHoldingShares(stock.shares)}</td>
+                    <td data-label="Avg Price">{formatCurrency(stock.averagePrice)}</td>
+                    <td data-label="Current">{formatCurrency(stock.currentPrice)}</td>
+                    <td data-label="Market Value">{formatCurrency(stock.marketValue)}</td>
+                    <td data-label="P/L" className={getToneClass(stock.gainLoss)}>
                       {formatCurrency(stock.gainLoss)}
                     </td>
-                    <td className={getToneClass(stock.gainLossPercent)}>
+                    <td data-label="P/L %" className={getToneClass(stock.gainLossPercent)}>
                       {formatPercent(stock.gainLossPercent)}
                     </td>
                   </tr>

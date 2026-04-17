@@ -359,7 +359,7 @@
 
 .paper-result-item {
   display: grid;
-  grid-template-columns: 96px minmax(0, 1fr) auto;
+  grid-template-columns: minmax(72px, 96px) minmax(0, 1fr) auto;
   gap: 14px;
   align-items: center;
   width: 100%;
@@ -535,5 +535,126 @@
   .paper-result-item {
     grid-template-columns: 1fr;
     justify-items: start;
+  }
+
+  .paper-card-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .paper-chip {
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .paper-table {
+    min-width: 760px;
+  }
+}
+
+@media (max-width: 560px) {
+  .paper-page {
+    padding: 80px 12px 48px;
+  }
+
+  .paper-hero-copy,
+  .paper-hero-panel,
+  .paper-card,
+  .paper-portfolio-card,
+  .paper-stat-card {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .paper-title {
+    margin-top: 18px;
+    font-size: clamp(2rem, 10vw, 2.6rem);
+    line-height: 1.04;
+  }
+
+  .paper-subtitle {
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  .paper-hero-actions,
+  .paper-quick-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .paper-primary-btn,
+  .paper-secondary-btn,
+  .paper-ghost-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .paper-badge,
+  .paper-chip,
+  .paper-card-eyebrow {
+    letter-spacing: 0.08em;
+  }
+
+  .paper-results-list {
+    min-height: 0;
+  }
+
+  .paper-table-shell {
+    overflow: visible;
+  }
+
+  .paper-table {
+    min-width: 0;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+  }
+
+  .paper-table thead {
+    display: none;
+  }
+
+  .paper-table tbody,
+  .paper-table tr,
+  .paper-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .paper-table tbody tr {
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.2);
+  }
+
+  .paper-table tbody td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.95rem;
+  }
+
+  .paper-table tbody td:first-child {
+    display: block;
+    padding-top: 0;
+  }
+
+  .paper-table tbody td:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .paper-table tbody td:not(:first-child)::before {
+    content: attr(data-label);
+    color: var(--paper-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 }
