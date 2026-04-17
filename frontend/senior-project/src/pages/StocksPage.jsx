@@ -38,7 +38,7 @@ const StockPage = () => {
 
   async function getCompanyCurrent(auth, companyCode) {
     try {
-      const res = await fetch("https://136.113.13.184/react/companies", {
+      const res = await fetch("https://136.113.13.184/react/company-history", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
