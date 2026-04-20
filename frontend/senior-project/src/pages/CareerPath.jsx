@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -64,70 +64,104 @@ const chartData = {
   ],
 };
 
-const chartOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      position: 'top',
-      labels: {
-        color: 'rgba(255, 255, 255, 0.9)',
-        font: {
-          size: 13,
-          weight: 600,
-        },
-        padding: 15,
-      },
-    },
-    title: {
-      display: true,
-      text: 'Lifetime Earnings by Education Level',
-      color: '#ffffff',
-      font: {
-        size: 20,
-        weight: 800,
-      },
-      padding: 20,
-    },
-    tooltip: {
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      titleColor: '#22c55e',
-      bodyColor: '#ffffff',
-      padding: 12,
-      borderColor: 'rgba(34, 197, 94, 0.5)',
-      borderWidth: 1,
-      callbacks: {
-        label: function(context) {
-          return `${context.dataset.label}: $${context.parsed.y.toLocaleString()}`;
-        },
-      },
-    },
-  },
-  scales: {
-    y: {
-      ticks: {
-        color: 'rgba(255, 255, 255, 0.7)',
-        callback: function(value) {
-          return '$' + value.toLocaleString();
-        },
-      },
-      grid: {
-        color: 'rgba(255, 255, 255, 0.1)',
-      },
-    },
-    x: {
-      ticks: {
-        color: 'rgba(255, 255, 255, 0.7)',
-      },
-      grid: {
-        color: 'rgba(255, 255, 255, 0.05)',
-      },
-    },
-  },
-};
-
 const CareerPath = () => {
   const [activeTab, setActiveTab] = useState('bachelor');
+  const [isMobileChart, setIsMobileChart] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth <= 640 : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileChart(window.innerWidth <= 640);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: {
+      mode: "index",
+      intersect: false,
+    },
+    plugins: {
+      legend: {
+        position: isMobileChart ? "bottom" : "top",
+        labels: {
+          color: "rgba(255, 255, 255, 0.9)",
+          boxWidth: isMobileChart ? 16 : 40,
+          boxHeight: isMobileChart ? 8 : 12,
+          usePointStyle: isMobileChart,
+          pointStyle: isMobileChart ? "circle" : undefined,
+          font: {
+            size: isMobileChart ? 11 : 13,
+            weight: 600,
+          },
+          padding: isMobileChart ? 10 : 15,
+        },
+      },
+      title: {
+        display: false,
+      },
+      tooltip: {
+        backgroundColor: "rgba(0, 0, 0, 0.8)",
+        titleColor: "#22c55e",
+        bodyColor: "#ffffff",
+        padding: 12,
+        borderColor: "rgba(34, 197, 94, 0.5)",
+        borderWidth: 1,
+        callbacks: {
+          label: function(context) {
+            return `${context.dataset.label}: $${context.parsed.y.toLocaleString()}`;
+          },
+        },
+      },
+    },
+    elements: {
+      line: {
+        tension: 0.28,
+        borderWidth: isMobileChart ? 2.5 : 3,
+      },
+      point: {
+        radius: isMobileChart ? 1.5 : 3,
+        hoverRadius: isMobileChart ? 4 : 6,
+        hitRadius: 14,
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        grace: "8%",
+        ticks: {
+          color: "rgba(255, 255, 255, 0.7)",
+          maxTicksLimit: isMobileChart ? 5 : 7,
+          padding: 8,
+          callback: function(value) {
+            if (value === 0) return "$0";
+            return `$${Math.round(Number(value) / 1000)}k`;
+          },
+        },
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)",
+        },
+      },
+      x: {
+        ticks: {
+          color: "rgba(255, 255, 255, 0.7)",
+          autoSkip: true,
+          maxRotation: isMobileChart ? 0 : 50,
+          minRotation: isMobileChart ? 0 : 0,
+          maxTicksLimit: isMobileChart ? 5 : 8,
+          padding: 8,
+        },
+        grid: {
+          color: "rgba(255, 255, 255, 0.05)",
+        },
+      },
+    },
+  };
 
   // Calculate cumulative earnings
   const moneyEarnedByYear = chartData.datasets.map(dataset => ({
@@ -157,6 +191,10 @@ const CareerPath = () => {
             <p className="section-description">
               See how education impacts your lifetime earnings potential over 15 years
             </p>
+          </div>
+          <div className="chart-title-block">
+            <h3 className="chart-title">Lifetime Earnings by Education Level</h3>
+            <p className="chart-subtitle">Projected yearly earnings across 15 years</p>
           </div>
           <div className="chart-wrapper">
             <Line options={chartOptions} data={chartData} />
