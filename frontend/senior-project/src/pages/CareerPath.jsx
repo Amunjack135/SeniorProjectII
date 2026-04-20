@@ -332,7 +332,7 @@ const CareerPath = () => {
                 <div className="pathway-card highlight">
                   <h3>Why Master's?</h3>
                   <ul className="benefit-list">
-                    <li>$110K+ starting salary</li>
+                    <li>$115K+ starting salary</li>
                     <li>Specialized expertise</li>
                     <li>Leadership positions</li>
                     <li>Full funding often available</li>
@@ -371,7 +371,7 @@ const CareerPath = () => {
                 <div className="pathway-card highlight">
                   <h3>Why PhD?</h3>
                   <ul className="benefit-list">
-                    <li>$130K+ starting salary</li>
+                    <li>$120K+ starting salary</li>
                     <li>Cutting-edge research</li>
                     <li>Highest expertise level</li>
                     <li>Usually fully funded</li>
