@@ -121,7 +121,7 @@ const CareerPath = () => {
     },
     elements: {
       line: {
-        tension: 0.28,
+        tension: 0,
         borderWidth: isMobileChart ? 2.5 : 3,
       },
       point: {
@@ -150,10 +150,10 @@ const CareerPath = () => {
       x: {
         ticks: {
           color: "rgba(255, 255, 255, 0.7)",
-          autoSkip: true,
+          autoSkip: isMobileChart,
           maxRotation: isMobileChart ? 0 : 50,
           minRotation: isMobileChart ? 0 : 0,
-          maxTicksLimit: isMobileChart ? 5 : 8,
+          maxTicksLimit: isMobileChart ? 8 : labels.length,
           padding: 8,
         },
         grid: {
