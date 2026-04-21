@@ -10,7 +10,7 @@
     },
     {
       "source": "/react/:path*",
-      "destination": "https://iotaspheresystems.com/react/:path*"
+      "destination": "https://iotaspheresystems.com/proxyhost/senior-project-2/react/:path*"
     },
     { "source": "/(.*)", "destination": "/" }
   ]
