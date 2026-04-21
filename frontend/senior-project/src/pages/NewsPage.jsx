@@ -137,7 +137,7 @@ const NewsPage = () => {
             {/* Refresh Button */}
             <button 
                 className="refresh-btn"
-                onClick={fetchNews}
+                onClick={() => window.location.reload()}
                 disabled={loading}
             >
                 <span className={`refresh-icon ${loading ? 'spinning' : ''}`}>↻</span>
