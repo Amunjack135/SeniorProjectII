@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const client = axios.create({
-  baseURL: "https://136.113.13.184",
+  baseURL: "https://iotaspheresystems.com/proxyhost/senior-project-2",
 });
 
 export default client;

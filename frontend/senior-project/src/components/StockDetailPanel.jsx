@@ -216,7 +216,7 @@ const StockDetailPanel = ({
   const chartWidth = 760;
   const chartHeight = 340;
   const chartPadding = 12;
-  const advancedChartUrl = `https://136.113.13.184/candlestick?company=${encodeURIComponent(company.symbol)}&period=${encodeURIComponent(selectedRange.period)}&interval=${encodeURIComponent(selectedRange.interval)}`;
+  const advancedChartUrl = `https://iotaspheresystems.com/proxyhost/senior-project-2/candlestick?company=${encodeURIComponent(company.symbol)}&period=${encodeURIComponent(selectedRange.period)}&interval=${encodeURIComponent(selectedRange.interval)}`;
   const chartPath = buildChartPath(activeHistory, chartWidth, chartHeight, chartPadding);
   const areaPath = buildAreaPath(chartPath, activeHistory, chartWidth, chartHeight, chartPadding);
   const infoItems = [
