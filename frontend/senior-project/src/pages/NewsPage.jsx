@@ -159,8 +159,8 @@ const NewsPage = () => {
                 <div className="error-icon">⚠️</div>
                 <h3>Failed to Load News</h3>
                 <p>{error}</p>
-                <button className="retry-btn" onClick={fetchNews}>
-                    Try Again
+                <button className="retry-btn" onClick={() => window.location.reload()}>
+                     Try Again
                 </button>
                 </div>
             ) : filteredArticles.length === 0 ? (
