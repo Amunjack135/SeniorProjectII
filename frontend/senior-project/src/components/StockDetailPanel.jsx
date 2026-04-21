@@ -216,7 +216,7 @@ const StockDetailPanel = ({
   const chartWidth = 760;
   const chartHeight = 340;
   const chartPadding = 12;
-  const advancedChartUrl = `/api/candlestick?company=${encodeURIComponent(company.symbol)}&period=${encodeURIComponent(selectedRange.period)}&interval=${encodeURIComponent(selectedRange.interval)}`;
+  const advancedChartUrl = `/api/chart/candlestick?company=${encodeURIComponent(company.symbol)}&period=${encodeURIComponent(selectedRange.period)}&interval=${encodeURIComponent(selectedRange.interval)}`;
   const chartPath = buildChartPath(activeHistory, chartWidth, chartHeight, chartPadding);
   const areaPath = buildAreaPath(chartPath, activeHistory, chartWidth, chartHeight, chartPadding);
   const infoItems = [
