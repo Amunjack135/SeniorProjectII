@@ -68,7 +68,7 @@ const StockMenu = ({ company, onViewDetails }) => {
       setChartLoading(true);
       setChartError(false);
 
-      const res = await client.post("https://136.113.13.184/react/company-history", { 
+      const res = await client.post("/react/company-history", { 
           auth: auth, 
           company: symbol, 
           period: "LAST_DAY", 
