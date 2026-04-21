@@ -1,5 +1,9 @@
 {
   "rewrites": [
+    {
+      "source": "/api/candlestick",
+      "destination": "https://iotaspheresystems.com/proxyhost/senior-project-2/candlestick"
+    },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
