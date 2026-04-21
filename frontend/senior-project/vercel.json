@@ -4,6 +4,10 @@
       "source": "/api/chart/:path*",
       "destination": "https://iotaspheresystems.com/proxyhost/senior-project-2/:path*"
     },
+    {
+      "source": "/proxyhost/senior-project-2/:path*",
+      "destination": "https://iotaspheresystems.com/proxyhost/senior-project-2/:path*"
+    },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
