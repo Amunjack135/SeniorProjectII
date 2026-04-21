@@ -8,6 +8,10 @@
       "source": "/proxyhost/senior-project-2/:path*",
       "destination": "https://iotaspheresystems.com/proxyhost/senior-project-2/:path*"
     },
+    {
+      "source": "/react/:path*",
+      "destination": "https://iotaspheresystems.com/react/:path*"
+    },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
