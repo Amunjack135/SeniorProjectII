@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import NewsCard from "../components/NewsCard";
 import "./NewsPage.css";
 import { useAuth } from "../hooks/AuthContext";
+import client from "../services/Client";
 
 const NewsPage = () => {
     const [articles, setArticles] = useState([]);
