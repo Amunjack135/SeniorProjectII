@@ -288,7 +288,6 @@ const StockDetailPanel = ({
                   className="stock-detail-chart-frame"
                   src={advancedChartUrl}
                   title={`${company.symbol} candlestick chart`}
-                  loading="lazy"
 
                 />
               </div>
