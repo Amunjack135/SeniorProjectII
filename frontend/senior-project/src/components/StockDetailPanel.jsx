@@ -1,5 +1,6 @@
 import { useEffect, useId, useState } from "react";
 import { useAuth } from "../hooks/AuthContext";
+import client from "../services/Client";
 import "./StockDetailPanel.css";
 
 const RANGE_OPTIONS = [
@@ -144,32 +145,25 @@ const StockDetailPanel = ({
 
       try {
         const [rangeRes, summaryRes] = await Promise.all([
-          fetch("https://136.113.13.184/react/company-history", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
+          client.post("/react/company-history", {
               auth,
               company: company.symbol,
               period: selectedRange.period,
               interval: selectedRange.interval,
-            }),
-          }),
-          fetch("https://136.113.13.184/react/company-history", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
+            },
+            { headers: { "Content-Type": "application/json" } }
+          ),
+          client.post("/react/company-history", {
               auth,
               company: company.symbol,
               period: "LAST_YEAR",
               interval: "DAY",
-            }),
-          }),
+            },
+            { headers: { "Content-Type": "application/json" } }
+          ),
         ]);
 
-        if (!rangeRes.ok) throw new Error(`HTTP ${rangeRes.status}`);
-        if (!summaryRes.ok) throw new Error(`HTTP ${summaryRes.status}`);
-
-        const [rangeJson, summaryJson] = await Promise.all([rangeRes.json(), summaryRes.json()]);
+        const [rangeJson, summaryJson] = [rangeRes.data, summaryRes.data];
 
         if (ignore) return;
 

@@ -76,7 +76,6 @@ const StockMenu = ({ company, onViewDetails }) => {
         },
         {headers: { "Content-Type": "application/json" }});
 
-
       const json = await res.data;
       const points = normalizeFrames(json);
 

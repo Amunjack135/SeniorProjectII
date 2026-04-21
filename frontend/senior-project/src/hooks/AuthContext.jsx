@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth as firebaseAuth } from "../firebase";
+import client from "../services/Client";
 
 const AuthContext = createContext(null);
 
@@ -12,16 +13,13 @@ export const AuthProvider = ({ children }) => {
 
   async function getAuth() {
     try {
-      const res = await fetch("https://136.113.13.184/react/connect", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include", // important if using cookies
-        body: JSON.stringify({}),
-      });
+      const res = await client.post("/react/connect",
+        {},
+        {headers: {"Content-Type": "application/json"}}
+      );
 
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-      const json = await res.json();
+      const json = await res.data;
       setAuth(json.auth);
     } catch (err) {
       console.error("Failed to fetch auth:", err);

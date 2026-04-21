@@ -26,18 +26,14 @@ const NewsPage = () => {
         setError(null);
 
         try {
-        const res = await fetch("https://136.113.13.184/react/news", { 
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
+        const res = await client.post("/react/news", { 
             auth: auth, 
             "is-everything": false
-            }),
-        });
+            },
+            { headers: { "Content-Type": "application/json" } }
+        );
 
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        const json = await res.json();
+        const json = await res.data;
         const articlesData = Array.isArray(json) ? json : (json.articles ?? []);
         setArticles(articlesData);
         setFilteredArticles(articlesData);

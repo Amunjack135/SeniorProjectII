@@ -7,6 +7,7 @@ import PieChart from "../components/PieChart";
 import BarChart from "../components/BarChart";
 import StockDetailPanel from "../components/StockDetailPanel";
 import { useAuth } from "../hooks/AuthContext";
+import client from "../services/Client";
 import "./PaperTradingPage.css";
 
 function formatHoldingShares(value) {
@@ -56,19 +57,15 @@ const PaperTradingPage = () => {
 
   async function getCompanyCurrent(authToken, companyCode) {
     try {
-      const res = await fetch("https://136.113.13.184/react/company-history", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const res = await client.post("/react/company-history", {
           auth: authToken,
           company: companyCode,
           period: "LAST_DAY",
-        }),
-      });
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-      const json = await res.json();
+      const json = res.data;
       const rows = Array.isArray(json) ? json : json?.Year ?? json?.data ?? [];
       if (!Array.isArray(rows) || rows.length === 0) return;
 

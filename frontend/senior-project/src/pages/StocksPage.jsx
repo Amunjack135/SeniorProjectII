@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import StockMenu from "../components/StockMenu";
 import StockDetailPanel from "../components/StockDetailPanel";
+import client from "../services/Client";
 import "./StockPage.css"
 import { useAuth } from "../hooks/AuthContext";
 
@@ -18,15 +19,14 @@ const StockPage = () => {
     setError(null);
 
     try {
-      const res = await fetch("https://136.113.13.184/react/companies", { 
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ auth: auth, page: nextPage }),
-      });
+      const res = await client.post("/react/companies", { 
+        auth: auth,
+        page: nextPage
+      }, 
+      { headers: { "Content-Type": "application/json" } }
+    );
 
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-      const json = await res.json();
+      const json = await res.data;
       setCompanies(Array.isArray(json) ? json : (json.companies ?? []));
       setPage(nextPage);
     } catch (err) {
@@ -38,19 +38,15 @@ const StockPage = () => {
 
   async function getCompanyCurrent(auth, companyCode) {
     try {
-      const res = await fetch("https://136.113.13.184/react/company-history", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const res = await client.post("/react/company-history", {
           auth: auth,
           company: companyCode,
           period: "LAST_DAY",
-        }),
-      });
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-      const json = await res.json();
+      const json = res.data;
       const rows = Array.isArray(json) ? json : json?.Year ?? json?.data ?? []; 
       if (!Array.isArray(rows) || rows.length === 0) return;
 

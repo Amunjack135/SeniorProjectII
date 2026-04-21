@@ -4,6 +4,7 @@ import { doc, getDoc, runTransaction } from "firebase/firestore";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { auth as firebaseAuth, db } from "../firebase";
 import { useAuth } from "../hooks/AuthContext";
+import client from "../services/Client";
 import "./PaperTradeOrderPage.css";
 
 const QUICK_VALUES = {
@@ -208,19 +209,15 @@ const PaperTradeOrderPage = () => {
       setLoadingPrice(true);
 
       try {
-        const res = await fetch("https://136.113.13.184/react/company-history", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
+        const res = await client.post("/react/company-history", {
             auth: apiAuth,
             company: normalizedSymbol,
             period: "LAST_DAY",
-          }),
-        });
+          },
+          { headers: { "Content-Type": "application/json" } }
+        );
 
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        const json = await res.json();
+        const json = res.data;
         const nextPrice = extractLatestPrice(json);
 
         if (!ignore && Number.isFinite(nextPrice) && nextPrice > 0) {

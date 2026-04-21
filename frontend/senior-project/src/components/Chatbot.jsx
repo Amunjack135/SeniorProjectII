@@ -4,6 +4,7 @@ import ChatForm from "./ChatForm";
 import { useAuth } from "../hooks/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import client from "../services/Client";
 
 
 const ChatbotIcon = () => {
@@ -68,18 +69,14 @@ const Chatbot = () => {
 
     async function getChatBotResponse(auth, userInput) {
         try {
-            const res = await fetch("https://136.113.13.184/react/chatbot", { 
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    auth: auth, 
-                    "user_input": userInput
-                }),
-            });
+            const res = await client.post("/react/chatbot", { 
+                auth: auth, 
+                "user_input": userInput
+            },
+            { headers: { "Content-Type": "application/json" } }
+        );
 
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-            const json = await res.json();
+            const json = await res.data;
             return json["reply"];
         } catch (err) {
             console.error('Failed to get chatbot response:', err);
