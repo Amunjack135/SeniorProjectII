@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./StockMenu.css";
 import { useAuth } from "../hooks/AuthContext";
+import client from "../services/Client";
 
 function normalizeFrames(payload) {
   const rows = Array.isArray(payload) ? payload : payload?.data ?? payload?.Year ?? [];
@@ -67,20 +68,17 @@ const StockMenu = ({ company, onViewDetails }) => {
       setChartLoading(true);
       setChartError(false);
 
-      const res = await fetch("https://136.113.13.184/react/company-history", { 
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
+      const res = await client.post("https://136.113.13.184/react/company-history", { 
           auth: auth, 
           company: symbol, 
           period: "LAST_DAY", 
           interval: "QUARTER_HOUR" 
-        }),
-      });
+        },
+        {headers: { "Content-Type": "application/json" }});
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-      const json = await res.json();
+      const json = await res.data;
       const points = normalizeFrames(json);
 
       if (!points.length) {
